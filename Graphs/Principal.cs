@@ -22,7 +22,7 @@ namespace Graphs
 		private void btn_executar_Click( object sender, EventArgs e )
 		{
 			int numeroVertices = 0;
-			bool isDigrafo = chk_digrafo.Checked;
+			bool isDirigido = chk_dirigido.Checked;
 
 			if( string.IsNullOrWhiteSpace( txt_nmVertices.Text ) )
 			{
@@ -40,7 +40,7 @@ namespace Graphs
 				return;
 			}
 
-			Grafo m_grafo = new Grafo( isDigrafo );
+			Grafo m_grafo = new Grafo( isDirigido );
 
 			for( int i = 1; i <= numeroVertices; i++ )
 			{
@@ -48,8 +48,16 @@ namespace Graphs
 			}
 
 			Representacoes.SetArestasFromString( m_grafo, txt_cjArestas.Text );
+			string listaAdj = Util.MontaListaAdjacencia( m_grafo );
+			MessageBox.Show( listaAdj );
 
-			MessageBox.Show( Representacoes.PrintArestas( m_grafo ) );
+			int[ , ] matriz = Representacoes.GetMatrizAdjacencia( m_grafo );
+			MessageBox.Show( Util.PrintMatriz( matriz ) );
+
+			//MessageBox.Show( Representacoes.PrintArestas( m_grafo ) );
+
+			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
+			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
 		}
 	}
 }

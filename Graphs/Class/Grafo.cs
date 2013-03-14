@@ -21,20 +21,15 @@ namespace Graphs
 		/// <summary>
 		/// Define se o grafo é dígrafo (as arestas possuem direção) ou não.
 		/// </summary>
-		public bool isDigrafo { get; set; }
-
-		/// <summary>
-		/// Define a lista de adjacência da aresta.
-		/// </summary>
-		public List<string> ListaAdjacencia { get; set; }
+		public bool isDirigido { get; set; }
 
 		/// <summary>
 		/// Construtor do grafo
 		/// </summary>
-		/// <param name="digrafo">Define se o grafo é dígrafo.</param>
-		public Grafo( bool digrafo )
+		/// <param name="dirigido">Define se o grafo é dígrafo.</param>
+		public Grafo( bool dirigido )
 		{
-			this.isDigrafo = digrafo;
+			this.isDirigido = dirigido;
 
 			this.Vertices = new List<Vertice>( );
 			this.Arestas = new List<Aresta>( );

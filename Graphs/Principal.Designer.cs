@@ -33,7 +33,7 @@
 			this.lbl_cjArestas = new System.Windows.Forms.Label();
 			this.txt_cjArestas = new System.Windows.Forms.TextBox();
 			this.btn_executar = new System.Windows.Forms.Button();
-			this.chk_digrafo = new System.Windows.Forms.CheckBox();
+			this.chk_dirigido = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// txt_nmVertices
@@ -79,22 +79,22 @@
 			this.btn_executar.UseVisualStyleBackColor = true;
 			this.btn_executar.Click += new System.EventHandler(this.btn_executar_Click);
 			// 
-			// chk_digrafo
+			// chk_dirigido
 			// 
-			this.chk_digrafo.AutoSize = true;
-			this.chk_digrafo.Location = new System.Drawing.Point(107, 158);
-			this.chk_digrafo.Name = "chk_digrafo";
-			this.chk_digrafo.Size = new System.Drawing.Size(93, 17);
-			this.chk_digrafo.TabIndex = 5;
-			this.chk_digrafo.Text = "grafo dígrafo?";
-			this.chk_digrafo.UseVisualStyleBackColor = true;
+			this.chk_dirigido.AutoSize = true;
+			this.chk_dirigido.Location = new System.Drawing.Point(107, 158);
+			this.chk_dirigido.Name = "chk_dirigido";
+			this.chk_dirigido.Size = new System.Drawing.Size(92, 17);
+			this.chk_dirigido.TabIndex = 5;
+			this.chk_dirigido.Text = "grafo dirigido?";
+			this.chk_dirigido.UseVisualStyleBackColor = true;
 			// 
 			// Principal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(415, 215);
-			this.Controls.Add(this.chk_digrafo);
+			this.Controls.Add(this.chk_dirigido);
 			this.Controls.Add(this.btn_executar);
 			this.Controls.Add(this.lbl_cjArestas);
 			this.Controls.Add(this.txt_cjArestas);
@@ -114,7 +114,7 @@
 		private System.Windows.Forms.Label lbl_cjArestas;
 		private System.Windows.Forms.TextBox txt_cjArestas;
 		private System.Windows.Forms.Button btn_executar;
-		private System.Windows.Forms.CheckBox chk_digrafo;
+		private System.Windows.Forms.CheckBox chk_dirigido;
 	}
 }
 

@@ -10,6 +10,36 @@ namespace Graphs.Class
 	public static class Representacoes
 	{
 		/// <summary>
+		/// Monta a matrix de adjacência do Grafo.
+		/// </summary>
+		/// <param name="grafo">O grafo a ser analisado.</param>
+		/// <returns>A matriz de adjacência do grafo.</returns>
+		public static int[ , ] GetMatrizAdjacencia( Grafo grafo )
+		{
+			var countVertices = grafo.Vertices.Count;
+			var matrixAdj = new int[ countVertices, countVertices ];
+
+			foreach( Aresta aresta in grafo.Arestas.OrderBy( a => a.Origem.Nome ) )
+			{
+				Vertice origem = grafo.Vertices.Where( a => a.Nome == aresta.Origem.Nome ).First();
+				var i = grafo.Vertices.IndexOf( origem );
+
+				Vertice destino = grafo.Vertices.Where( a => a.Nome == aresta.Destino.Nome ).First( );
+				var j = grafo.Vertices.IndexOf( destino );
+
+				if( i < 0 || j < 0 )
+					continue;
+
+				matrixAdj[ i, j ] = 1;
+
+				if( !grafo.isDirigido )
+					matrixAdj[ j, i ] = 1;
+			}
+
+			return matrixAdj;
+		}
+
+		/// <summary>
 		/// Monta a lista de adjacência do grafo.
 		/// </summary>
 		/// <param name="grafo">O grafo a ser verificado.</param>
@@ -18,15 +48,15 @@ namespace Graphs.Class
 		{
 			List<List<Vertice>> m_lista = new List<List<Vertice>>( );
 
-			for( int i = 0; i < grafo.Vertices.Count; i++ )
+			foreach( Vertice vertice in grafo.Vertices.OrderBy( a => a.Nome ) )
 			{
-				List<Vertice> m_listaVertices = GetAdjacentes( grafo, grafo.Vertices[ i ] );
+				List<Vertice> m_listaVertices = GetAdjacentes( grafo, vertice );
 
 				m_lista.Add( new List<Vertice>( ) );
 
 				foreach( Vertice verticeAdj in m_listaVertices )
 				{
-					m_lista[ i ].Add( new Vertice( verticeAdj.Nome ) );
+					m_lista[ Convert.ToInt32( vertice.Nome ) - 1 ].Add( new Vertice( verticeAdj.Nome ) );
 				}
 			}
 
@@ -41,11 +71,11 @@ namespace Graphs.Class
 		/// <returns>Uma List<Vertice> contendo os vértices adjacentes.</Vertice></returns>
 		public static List<Vertice> GetAdjacentes( Grafo grafo, Vertice vertice )
 		{
-			var vertices = grafo.Arestas.Where( a => a.Origem.Equals( vertice ) ).Select( a => a.Destino );
+			var vertices = grafo.Arestas.Where( a => a.Origem.Nome.Equals( vertice.Nome ) ).Select( a => a.Destino );
 
-			if( !grafo.isDigrafo )
+			if( !grafo.isDirigido )
 			{
-				var v = grafo.Arestas.Where( a => a.Destino.Equals( vertice ) ).Select( a => a.Origem );
+				var v = grafo.Arestas.Where( a => a.Destino.Nome.Equals( vertice.Nome ) ).Select( a => a.Origem );
 				vertices = vertices.Union( v );
 			}
 
@@ -61,9 +91,6 @@ namespace Graphs.Class
 		/// <param name="text">O texto a ser verificado</param>
 		public static void SetArestasFromString( Grafo grafo, string text )
 		{
-			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
-			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
-
 			List<string> m_lista = new List<string>( );
 
 			// Varrendo a string e dando um match para encontrar os números
@@ -74,27 +101,6 @@ namespace Graphs.Class
 			{
 				grafo.AddAresta( new Vertice( m_lista[ i ] ), new Vertice( m_lista[ i + 1 ] ) );
 			}
-		}
-
-		/// <summary>
-		/// Imprime as aresta com as suas respectivas origens e destinos.
-		/// </summary>
-		/// <param name="grafo">O grafo a ser analisado</param>
-		/// <returns>Uma String contendo os dados.</returns>
-		public static string PrintArestas( Grafo grafo )
-		{
-			string listaAresta = "";
-
-			for( int i = 0; i < grafo.Arestas.Count; i++ )
-			{
-				listaAresta += string.Format( "Origem: {0} - Destino: {1}",
-										grafo.Arestas[ i ].Origem,
-										grafo.Arestas[ i ].Destino );
-
-				listaAresta += Environment.NewLine;
-			}
-
-			return listaAresta;
 		}
 	}
 }
