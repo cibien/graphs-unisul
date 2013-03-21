@@ -53,10 +53,11 @@ namespace Graphs
 		/// </summary>
 		/// <param name="origem">O Vértice de origem.</param>
 		/// <param name="destino">O Vértice de destino.</param>
+		/// <param name="nome">O nome da aresta.</param>
 		/// <returns>A aresta criada.</returns>
-		public Aresta AddAresta( Vertice origem, Vertice destino )
+		public Aresta AddAresta( Vertice origem, Vertice destino, string nome )
 		{
-			Aresta m_aresta = new Aresta( origem, destino );
+			Aresta m_aresta = new Aresta( origem, destino, nome );
 			Arestas.Add( m_aresta );
 
 			return m_aresta;

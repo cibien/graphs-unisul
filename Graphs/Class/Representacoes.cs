@@ -10,6 +10,53 @@ namespace Graphs.Class
 	public static class Representacoes
 	{
 		/// <summary>
+		/// Gera a matriz de incidêcia do grafo.
+		/// </summary>
+		/// <param name="grafo">O grafo a ser analisado.</param>
+		/// <returns>A matriz de incidência.</returns>
+		public static int[ , ] GetMatrizIncidencia( Grafo grafo )
+		{
+			int countVertices = grafo.Vertices.Count; 
+			int countArestas = grafo.Arestas.Count;
+			var matrixIncidencia = new int[ countVertices, countArestas]; //para colocar o nome dos vértices
+			List<Aresta> arestas = grafo.Arestas.OrderBy( a => a.Nome ).ToList( );
+			List<Vertice> vertices = grafo.Vertices.OrderBy( a => a.Nome ).ToList( );
+
+			for( int i = 0; i < countVertices; i++ )
+			{
+				for( int j = 0; j < countArestas; j++ )
+				{
+					if( grafo.isDirigido )
+					{
+						if( arestas[ j ].Origem.Nome == vertices[ i ].Nome )
+						{
+							matrixIncidencia[ i, j ] = 1;
+						}
+						else if( arestas[ j ].Destino.Nome == vertices[ i ].Nome )
+						{
+							matrixIncidencia[ i, j ] = -1;
+						}
+						else
+							matrixIncidencia[ i, j ] = 0;
+					}
+					else
+					{
+						if( arestas[ j ].Origem.Nome == vertices[ i ].Nome )
+						{
+							matrixIncidencia[ i, j ] = 1;
+						}
+						else
+						{
+							matrixIncidencia[ i, j ] = 0;
+						}
+					}
+				}
+			}
+
+			return matrixIncidencia;
+		}
+
+		/// <summary>
 		/// Monta a matrix de adjacência do Grafo.
 		/// </summary>
 		/// <param name="grafo">O grafo a ser analisado.</param>
@@ -21,7 +68,7 @@ namespace Graphs.Class
 
 			foreach( Aresta aresta in grafo.Arestas.OrderBy( a => a.Origem.Nome ) )
 			{
-				Vertice origem = grafo.Vertices.Where( a => a.Nome == aresta.Origem.Nome ).First();
+				Vertice origem = grafo.Vertices.Where( a => a.Nome == aresta.Origem.Nome ).First( );
 				var i = grafo.Vertices.IndexOf( origem );
 
 				Vertice destino = grafo.Vertices.Where( a => a.Nome == aresta.Destino.Nome ).First( );
@@ -99,7 +146,7 @@ namespace Graphs.Class
 			// Passando em cada par, criando uma nova aresta, e adicinando ao grafo
 			for( int i = 0; i < m_lista.Count; i += 2 )
 			{
-				grafo.AddAresta( new Vertice( m_lista[ i ] ), new Vertice( m_lista[ i + 1 ] ) );
+				grafo.AddAresta( new Vertice( m_lista[ i ] ), new Vertice( m_lista[ i + 1 ] ), i.ToString( ) );
 			}
 		}
 	}

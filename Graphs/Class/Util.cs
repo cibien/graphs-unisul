@@ -68,19 +68,22 @@ namespace Graphs.Class
 		/// <summary>
 		/// Imprime a matriz recebi.
 		/// </summary>
-		/// <param name="matrixAdj">A matriz a ser analisada.</param>
+		/// <param name="matriz">A matriz a ser analisada.</param>
 		/// <returns>Uma String contendo a matriz.</returns>
-		public static string PrintMatriz( int[ , ] matrixAdj )
+		public static string PrintMatriz( int[ , ] matriz )
 		{
 			string retorno = string.Empty;
 
 			retorno += "Matriz de Adjacência" + Environment.NewLine;
 
-			for( int i = 0; i <= Math.Sqrt( matrixAdj.Length ) - 1; i++ )
+			int rowLength = matriz.GetLength( 0 );
+			int colLength = matriz.GetLength( 1 );
+
+			for( int i = 0; i < rowLength; i++ )
 			{
-				for( int j = 0; j <= Math.Sqrt( matrixAdj.Length ) - 1; j++ )
+				for( int j = 0; j < colLength; j++ )
 				{
-					retorno += string.Format( "{0}  ", matrixAdj[ i, j ] );
+					retorno += string.Format( "{0}  ", matriz[ i, j ] );
 				}
 
 				retorno += Environment.NewLine;

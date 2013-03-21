@@ -51,10 +51,11 @@ namespace Graphs
 			string listaAdj = Util.MontaListaAdjacencia( m_grafo );
 			MessageBox.Show( listaAdj );
 
-			int[ , ] matriz = Representacoes.GetMatrizAdjacencia( m_grafo );
-			MessageBox.Show( Util.PrintMatriz( matriz ) );
+			int[ , ] matrizAdj = Representacoes.GetMatrizAdjacencia( m_grafo );
+			MessageBox.Show( Util.PrintMatriz( matrizAdj ) );
 
-			//MessageBox.Show( Representacoes.PrintArestas( m_grafo ) );
+			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
+			MessageBox.Show( Util.PrintMatriz( matrizIncidencia ) );
 
 			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
 			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2

@@ -10,11 +10,13 @@ namespace Graphs
 	{
 		public Vertice Origem { get; set; }
 		public Vertice Destino { get; set; }
+		public string Nome { get; set; }
 
-		public Aresta(Vertice origem, Vertice destino )
+		public Aresta(Vertice origem, Vertice destino, string nome )
 		{
 			this.Origem = origem;
 			this.Destino = destino;
+			this.Nome = nome;
 		}
 	}
 }
