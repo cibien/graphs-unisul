@@ -57,6 +57,14 @@ namespace Graphs
 			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
 			MessageBox.Show( Util.PrintMatriz( matrizIncidencia ) );
 
+			List<Vertice> listaInicio = Representacoes.GetListaAresta( m_grafo, true );
+			List<Vertice> listaFim = Representacoes.GetListaAresta( m_grafo, false );
+
+			string retornoIni = Util.PrintListaAresta( listaInicio, true );
+			string retornoFim = Util.PrintListaAresta( listaFim, false );
+
+			MessageBox.Show( retornoIni + Environment.NewLine + retornoFim );
+
 			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
 			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
 		}

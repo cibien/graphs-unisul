@@ -100,7 +100,9 @@
 			this.Controls.Add(this.txt_cjArestas);
 			this.Controls.Add(this.lbl_nmVertice);
 			this.Controls.Add(this.txt_nmVertices);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "Principal";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Grafos";
 			this.ResumeLayout(false);
 			this.PerformLayout();

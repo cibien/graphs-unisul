@@ -16,9 +16,9 @@ namespace Graphs.Class
 		/// <returns>A matriz de incidência.</returns>
 		public static int[ , ] GetMatrizIncidencia( Grafo grafo )
 		{
-			int countVertices = grafo.Vertices.Count; 
+			int countVertices = grafo.Vertices.Count;
 			int countArestas = grafo.Arestas.Count;
-			var matrixIncidencia = new int[ countVertices, countArestas]; //para colocar o nome dos vértices
+			var matrixIncidencia = new int[ countVertices, countArestas ]; //para colocar o nome dos vértices
 			List<Aresta> arestas = grafo.Arestas.OrderBy( a => a.Nome ).ToList( );
 			List<Vertice> vertices = grafo.Vertices.OrderBy( a => a.Nome ).ToList( );
 
@@ -111,6 +111,30 @@ namespace Graphs.Class
 		}
 
 		/// <summary>
+		/// Obtem a lista de arestas para o grafo
+		/// </summary>
+		/// <param name="grafo"></param>
+		/// <returns></returns>
+		public static List<Vertice> GetListaAresta( Grafo grafo, bool inicio )
+		{
+			List<Vertice> listaInicio = new List<Vertice>( );
+			List<Vertice> listaFim = new List<Vertice>( );
+
+			foreach( Aresta aresta in grafo.Arestas )
+			{
+				if( inicio )
+					listaInicio.Add( aresta.Origem );
+				else
+					listaFim.Add( aresta.Destino );
+			}
+
+			if( inicio )
+				return listaInicio;
+			else
+				return listaFim;
+		}
+
+		/// <summary>
 		/// Pega a lista de vértices adjacentes.
 		/// </summary>
 		/// <param name="grafo">O grafo a ser analisado.</param>
@@ -124,6 +148,19 @@ namespace Graphs.Class
 			{
 				var v = grafo.Arestas.Where( a => a.Destino.Nome.Equals( vertice.Nome ) ).Select( a => a.Origem );
 				vertices = vertices.Union( v );
+
+				List<Vertice> resultado = vertices.ToList( );
+
+				//
+				// Removendo os itens duplicados
+				//
+				foreach( Vertice vertex in vertices )
+				{
+					if( resultado.Count( a => a.Nome == vertex.Nome ) > 1 )
+						resultado.Remove( resultado.FindLast( a => a.Nome == vertex.Nome ) );
+				}
+
+				vertices = resultado;
 			}
 
 			return vertices.ToList( );

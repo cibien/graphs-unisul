@@ -91,5 +91,34 @@ namespace Graphs.Class
 
 			return retorno;
 		}
+
+		public static string PrintListaAresta( List<Vertice> lista, bool inicio )
+		{
+			string retorno = string.Empty;
+			bool last = false;
+
+			if( inicio )
+				retorno += "g = (";
+			else
+				retorno += "h = (";
+
+
+			foreach( Vertice vertice in lista )
+			{
+				last = lista.Last( ) == vertice;
+
+				retorno += vertice.Nome;
+
+				if(!last)
+					retorno += ", ";
+
+				if( lista.Last( ) == vertice )
+				{
+					retorno += ")";
+				}
+			}
+
+			return retorno;
+		}
 	}
 }
