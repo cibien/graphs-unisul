@@ -29,26 +29,16 @@ namespace Graphs.Class
 					if( grafo.isDirigido )
 					{
 						if( arestas[ j ].Origem.Nome == vertices[ i ].Nome )
-						{
 							matrixIncidencia[ i, j ] = 1;
-						}
 						else if( arestas[ j ].Destino.Nome == vertices[ i ].Nome )
-						{
 							matrixIncidencia[ i, j ] = -1;
-						}
 						else
 							matrixIncidencia[ i, j ] = 0;
 					}
 					else
 					{
-						if( arestas[ j ].Origem.Nome == vertices[ i ].Nome )
-						{
-							matrixIncidencia[ i, j ] = 1;
-						}
-						else
-						{
-							matrixIncidencia[ i, j ] = 0;
-						}
+						matrixIncidencia[ i, j ] = ( vertices[ i ].Nome == arestas[ j ].Origem.Nome ||
+											    vertices[ i ].Nome == arestas[ j ].Destino.Nome ) ? 1 : 0;
 					}
 				}
 			}

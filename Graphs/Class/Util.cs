@@ -65,31 +65,37 @@ namespace Graphs.Class
 			return listaAresta;
 		}
 
-		/// <summary>
-		/// Imprime a matriz recebi.
-		/// </summary>
-		/// <param name="matriz">A matriz a ser analisada.</param>
-		/// <returns>Uma String contendo a matriz.</returns>
-		public static string PrintMatriz( int[ , ] matriz )
+		public static string PrintMatrix( int[ , ] matriz, string textoInicial )
 		{
-			string retorno = string.Empty;
+			StringBuilder sb = new StringBuilder( );
+			sb.Append( textoInicial );
+			sb.Append( Environment.NewLine );
 
-			retorno += "Matriz de Adjacência" + Environment.NewLine;
-
-			int rowLength = matriz.GetLength( 0 );
-			int colLength = matriz.GetLength( 1 );
-
-			for( int i = 0; i < rowLength; i++ )
+			for( int i = 0; i < matriz.GetLength( 0 ); i++ )
 			{
-				for( int j = 0; j < colLength; j++ )
+				for( int j = 0; j < matriz.GetLength( 1 ); j++ )
 				{
-					retorno += string.Format( "{0}  ", matriz[ i, j ] );
+					sb.Append( "|" );
+
+					if( matriz[ i, j ] < 0 )
+					{
+						sb.Append( " " );
+						sb.Append( matriz[ i, j ] );
+						sb.Append( " " );
+					}
+					else
+					{
+						sb.Append( "  " );
+						sb.Append( matriz[ i, j ] );
+						sb.Append( " " );
+					}
 				}
 
-				retorno += Environment.NewLine;
+				sb.Append( "|" );
+				sb.Append( Environment.NewLine );
 			}
 
-			return retorno;
+			return sb.ToString( );
 		}
 
 		public static string PrintListaAresta( List<Vertice> lista, bool inicio )
@@ -109,7 +115,7 @@ namespace Graphs.Class
 
 				retorno += vertice.Nome;
 
-				if(!last)
+				if( !last )
 					retorno += ", ";
 
 				if( lista.Last( ) == vertice )

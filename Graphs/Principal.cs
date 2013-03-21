@@ -52,10 +52,10 @@ namespace Graphs
 			MessageBox.Show( listaAdj );
 
 			int[ , ] matrizAdj = Representacoes.GetMatrizAdjacencia( m_grafo );
-			MessageBox.Show( Util.PrintMatriz( matrizAdj ) );
+			MessageBox.Show( Util.PrintMatrix( matrizAdj, "Matrix de Adjacência" ) );
 
 			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
-			MessageBox.Show( Util.PrintMatriz( matrizIncidencia ) );
+			MessageBox.Show( Util.PrintMatrix( matrizIncidencia, "Matrix de Incidência" ) );
 
 			List<Vertice> listaInicio = Representacoes.GetListaAresta( m_grafo, true );
 			List<Vertice> listaFim = Representacoes.GetListaAresta( m_grafo, false );
@@ -67,6 +67,7 @@ namespace Graphs
 
 			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
 			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
+			// {(1,2),(1,4),(2,5),(3,5),(3,6),(4,2),(5,4),(6,6)}
 		}
 	}
 }
