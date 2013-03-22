@@ -17,7 +17,7 @@ namespace Graphs.Class
 		public static int[ , ] GetMatrizIncidencia( Grafo grafo )
 		{
 			int countVertices = grafo.Vertices.Count;
-			int countArestas = grafo.Arestas.Count;
+			int countArestas = grafo.CountArestas;
 			var matrixIncidencia = new int[ countVertices, countArestas ]; //para colocar o nome dos vértices
 			List<Aresta> arestas = grafo.Arestas.OrderBy( a => a.Nome ).ToList( );
 			List<Vertice> vertices = grafo.Vertices.OrderBy( a => a.Nome ).ToList( );
@@ -173,7 +173,14 @@ namespace Graphs.Class
 			// Passando em cada par, criando uma nova aresta, e adicinando ao grafo
 			for( int i = 0; i < m_lista.Count; i += 2 )
 			{
-				grafo.AddAresta( new Vertice( m_lista[ i ] ), new Vertice( m_lista[ i + 1 ] ), i.ToString( ) );
+				Vertice origem = new Vertice( m_lista[ i ] );
+				Vertice destino = new Vertice( m_lista[ i + 1 ] );
+
+				string nome = grafo.Arestas.Where( a =>
+											( a.Destino.Nome == origem.Nome && a.Origem.Nome == destino.Nome ) ||
+											( a.Destino.Nome == destino.Nome && a.Origem.Nome == origem.Nome ) ).Select( b => b.Nome ).FirstOrDefault( );
+
+				grafo.AddAresta( origem, destino, nome == null ? i.ToString( ) : nome );
 			}
 		}
 	}

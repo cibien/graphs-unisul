@@ -8,6 +8,15 @@ namespace Graphs
 {
 	public class Grafo
 	{
+		public int CountArestas
+		{
+			get
+			{
+				int i = Arestas.GroupBy( a => a.Nome ).Count( );
+				return i;
+			}
+		}
+
 		/// <summary>
 		/// Contêm a lista de vértices do grafo.
 		/// </summary>
