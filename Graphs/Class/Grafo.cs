@@ -8,6 +8,9 @@ namespace Graphs
 {
 	public class Grafo
 	{
+		/// <summary>
+		/// Contador de arestas real.
+		/// </summary>
 		public int CountArestas
 		{
 			get
@@ -33,6 +36,11 @@ namespace Graphs
 		public bool isDirigido { get; set; }
 
 		/// <summary>
+		/// Lista de vértices e seus adjacentes contendo o custo.
+		/// </summary>
+		public List<Tuple<Vertice, double>> ProximosVertices { get; set; }
+
+		/// <summary>
 		/// Construtor do grafo
 		/// </summary>
 		/// <param name="dirigido">Define se o grafo é dígrafo.</param>
@@ -42,6 +50,7 @@ namespace Graphs
 
 			this.Vertices = new List<Vertice>( );
 			this.Arestas = new List<Aresta>( );
+			this.ProximosVertices = new List<Tuple<Vertice, double>>( );
 		}
 
 		/// <summary>

@@ -10,6 +10,51 @@ namespace Graphs.Class
 	public static class Representacoes
 	{
 		/// <summary>
+		/// Calcula o menor caminho p
+		/// </summary>
+		/// <param name="grafo"></param>
+		/// <param name="origem"></param>
+		/// <param name="destino"></param>
+		/// <param name="caminhoPercorrido"></param>
+		/// <returns></returns>
+		public static double CalculaMenorCaminho( Grafo grafo, Vertice origem, Vertice destino, List<Vertice> caminhoPercorrido )
+		{
+			double menor = Double.MaxValue;
+			double custo = 0;
+
+			caminhoPercorrido.Add( origem );
+
+			if( origem.Nome == destino.Nome )
+				return custo;
+
+			List<Vertice> caminhoAnterior = new List<Vertice>( caminhoPercorrido );
+			List<Vertice> caminho = null;
+
+			foreach( Vertice proxVertice in GetAdjacentes( grafo, origem ) )
+			{
+				caminho = new List<Vertice>( caminhoAnterior );
+				custo = Double.MaxValue;
+
+				if( !caminho.Exists( a => a.Nome == proxVertice.Nome ) )
+					custo = 1 + CalculaMenorCaminho( grafo, proxVertice, destino, caminho );
+			}
+
+			if( custo < menor )
+			{
+				menor = custo;
+
+				caminhoPercorrido.Clear( );
+				caminho.ForEach( a =>
+				{
+
+					caminhoPercorrido.Add( a );
+				} );
+			}
+
+			return menor;
+		}
+
+		/// <summary>
 		/// Gera a matriz de incidêcia do grafo.
 		/// </summary>
 		/// <param name="grafo">O grafo a ser analisado.</param>
@@ -170,6 +215,8 @@ namespace Graphs.Class
 			// Varrendo a string e dando um match para encontrar os números
 			m_lista = Regex.Split( text, @"\D+" ).Where( c => c.Trim( ) != "" ).ToList( );
 
+			int countNome = 1;
+
 			// Passando em cada par, criando uma nova aresta, e adicinando ao grafo
 			for( int i = 0; i < m_lista.Count; i += 2 )
 			{
@@ -180,7 +227,10 @@ namespace Graphs.Class
 											( a.Destino.Nome == origem.Nome && a.Origem.Nome == destino.Nome ) ||
 											( a.Destino.Nome == destino.Nome && a.Origem.Nome == origem.Nome ) ).Select( b => b.Nome ).FirstOrDefault( );
 
-				grafo.AddAresta( origem, destino, nome == null ? i.ToString( ) : nome );
+				grafo.AddAresta( origem, destino, nome == null ? countNome.ToString( ) : nome );
+
+				if( nome == null )
+					countNome++;
 			}
 		}
 	}

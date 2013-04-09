@@ -19,16 +19,13 @@ namespace Graphs
 			InitializeComponent( );
 		}
 
+		/// <summary>
+		/// Executa a ação do usuário
+		/// </summary>
 		private void btn_executar_Click( object sender, EventArgs e )
 		{
 			int numeroVertices = 0;
 			bool isDirigido = chk_dirigido.Checked;
-
-			if( string.IsNullOrWhiteSpace( txt_nmVertices.Text ) )
-			{
-				MessageBox.Show( "Apenas números são permitidos no campo 'Número Vértices'." );
-				return;
-			}
 
 			try
 			{
@@ -48,26 +45,134 @@ namespace Graphs
 			}
 
 			Representacoes.SetArestasFromString( m_grafo, txt_cjArestas.Text );
-			string listaAdj = Util.MontaListaAdjacencia( m_grafo );
-			MessageBox.Show( listaAdj );
 
-			int[ , ] matrizAdj = Representacoes.GetMatrizAdjacencia( m_grafo );
-			MessageBox.Show( Util.PrintMatrix( matrizAdj, "Matrix de Adjacência" ) );
+			switch( cbx_operacao.Text )
+			{
+				case "Lista de Incidência":
+					ListaIncidencia( m_grafo );
+					break;
 
-			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
-			MessageBox.Show( Util.PrintMatrix( matrizIncidencia, "Matrix de Incidência" ) );
+				case "Matriz de Adjacência":
+					MatrizAdjacencia( m_grafo );
+					break;
 
+				case "Matriz de Incidência":
+					MatrizIncidencia( m_grafo );
+					break;
+
+				case "Lista de Aresta":
+					ListaAresta( m_grafo );
+					break;
+
+				case "Centro do Grafo":
+					CentroGrafo( m_grafo );
+					break;
+
+				default:
+					break;
+			}
+
+			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
+			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
+			// {(1,2),(1,4),(2,5),(3,5),(3,6),(4,2),(5,4),(6,6)}
+		}
+
+		private void CentroGrafo( Grafo m_grafo )
+		{
+			foreach( Vertice vertice in m_grafo.Vertices )
+			{
+				List<Vertice> menorCaminho = new List<Vertice>( );
+				Vertice destino = m_grafo.Vertices.Find( a => a.Nome == "4" );
+				double menorCusto = Representacoes.CalculaMenorCaminho( m_grafo, vertice, destino, menorCaminho );
+
+				string resultado = "Menor caminho entre " + vertice.Nome + " e " + destino.Nome + " é: " + menorCusto.ToString( ) + Environment.NewLine;
+
+				foreach( Vertice v in menorCaminho )
+				{
+					resultado += "=> " + v.Nome + " ";
+				}
+
+				MessageBox.Show( resultado );
+			}
+
+			//List<Vertice> menorCaminho = new ArrayList<Vertice>();
+			//Double menorCusto = calcularMenorCaminho(a, g, menorCaminho);
+
+			//System.out.println(menorCusto);
+			//for (Vertice vertice : menorCaminho) {
+			//  System.out.print("=> " + vertice.getNome() + " ");
+			//}
+		}
+
+		private void ListaAresta( Grafo m_grafo )
+		{
 			List<Vertice> listaInicio = Representacoes.GetListaAresta( m_grafo, true );
 			List<Vertice> listaFim = Representacoes.GetListaAresta( m_grafo, false );
 
 			string retornoIni = Util.PrintListaAresta( listaInicio, true );
 			string retornoFim = Util.PrintListaAresta( listaFim, false );
 
-			MessageBox.Show( retornoIni + Environment.NewLine + retornoFim );
-
-			// {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}
-			// 1,2 1,5 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2
-			// {(1,2),(1,4),(2,5),(3,5),(3,6),(4,2),(5,4),(6,6)}
+			MessageBox.Show( retornoIni + Environment.NewLine + retornoFim, "Lista de Arestas" );
 		}
+
+		private void MatrizIncidencia( Grafo m_grafo )
+		{
+			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
+			MessageBox.Show( Util.PrintMatrix( matrizIncidencia, "Matrix de Incidência" ), "Matriz de Incidência" );
+		}
+
+		private void MatrizAdjacencia( Grafo m_grafo )
+		{
+			int[ , ] matrizAdj = Representacoes.GetMatrizAdjacencia( m_grafo );
+			MessageBox.Show( Util.PrintMatrix( matrizAdj, "Matrix de Adjacência" ), "Matriz de Incidência" );
+		}
+
+		private void ListaIncidencia( Grafo m_grafo )
+		{
+			string listaAdj = Util.MontaListaAdjacencia( m_grafo );
+			MessageBox.Show( listaAdj, "Lista de Incidência" );
+		}
+
+		/// <summary>
+		/// Fecha o formulário
+		/// </summary>
+		private void btn_cancelar_Click( object sender, EventArgs e )
+		{
+			this.Close( );
+		}
+
+		/// <summary>
+		/// Liberando o botão de executar somente se os campos estiverem preenchidos.
+		/// </summary>
+		private void txt_nmVertices_TextChanged( object sender, EventArgs e )
+		{
+			ValidaCampos( );
+		}
+
+		/// <summary>
+		/// Liberando o botão de executar somente se os campos estiverem preenchidos.
+		/// </summary>
+		private void txt_cjArestas_TextChanged( object sender, EventArgs e )
+		{
+			ValidaCampos( );
+		}
+
+		/// <summary>
+		/// Liberando o botão de executar somente se os campos estiverem preenchidos.
+		/// </summary>
+		private void cbx_operacao_TextChanged( object sender, EventArgs e )
+		{
+			ValidaCampos( );
+		}
+
+		private void ValidaCampos( )
+		{
+			bool ok = !string.IsNullOrWhiteSpace( txt_nmVertices.Text ) &&
+							   !string.IsNullOrWhiteSpace( txt_cjArestas.Text ) &&
+							   !string.IsNullOrWhiteSpace( cbx_operacao.Text );
+
+			btn_executar.Enabled = ok;
+		}
+
 	}
 }
