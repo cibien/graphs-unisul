@@ -79,28 +79,35 @@ namespace Graphs
 
 		private void CentroGrafo( Grafo m_grafo )
 		{
-			foreach( Vertice vertice in m_grafo.Vertices )
+			int[ , ] matrizDistancia = new int[ m_grafo.Vertices.Count, m_grafo.Vertices.Count ];
+			List<Vertice> menorCaminho = new List<Vertice>( );
+
+			for( int i = 0; i < m_grafo.Vertices.Count; i++ )
 			{
-				List<Vertice> menorCaminho = new List<Vertice>( );
-				Vertice destino = m_grafo.Vertices.Find( a => a.Nome == "4" );
-				double menorCusto = Representacoes.CalculaMenorCaminho( m_grafo, vertice, destino, menorCaminho );
-
-				string resultado = "Menor caminho entre " + vertice.Nome + " e " + destino.Nome + " é: " + menorCusto.ToString( ) + Environment.NewLine;
-
-				foreach( Vertice v in menorCaminho )
+				for( int j = 0; j < m_grafo.Vertices.Count; j++ )
 				{
-					resultado += "=> " + v.Nome + " ";
+					int menorCusto = Representacoes.CalculaMenorCaminho( m_grafo, m_grafo.Vertices[ i ], m_grafo.Vertices[ j ], menorCaminho );
+					matrizDistancia[ i, j ] = menorCusto;
 				}
-
-				MessageBox.Show( resultado );
 			}
 
-			//List<Vertice> menorCaminho = new ArrayList<Vertice>();
-			//Double menorCusto = calcularMenorCaminho(a, g, menorCaminho);
+			MessageBox.Show( Util.PrintMatrix( matrizDistancia, "Matriz de Distância" ) );
 
-			//System.out.println(menorCusto);
-			//for (Vertice vertice : menorCaminho) {
-			//  System.out.print("=> " + vertice.getNome() + " ");
+			//if( menorCusto == Int32.MaxValue )
+			//{
+			//	MessageBox.Show( "Este vértice não possui caminho até o vértice de destino" );
+			//}
+			//else
+			//{
+			//	string resultado = "Menor caminho entre " + origem.Nome + " e " + destino.Nome + " é: " + menorCusto.ToString( );
+			//	resultado += Environment.NewLine + Environment.NewLine;
+
+			//	foreach( Vertice v in menorCaminho )
+			//	{
+			//		resultado += " => " + v.Nome + " ";
+			//	}
+
+			//	MessageBox.Show( resultado );
 			//}
 		}
 

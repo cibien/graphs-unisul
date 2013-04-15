@@ -9,6 +9,7 @@ namespace Graphs
 	public class Vertice
 	{
 		public string Nome { get; set; }
+		public bool Visitado { get; set; }
 
 		public Vertice( string nome )
 		{

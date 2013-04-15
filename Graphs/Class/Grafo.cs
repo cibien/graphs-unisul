@@ -80,5 +80,16 @@ namespace Graphs
 
 			return m_aresta;
 		}
+
+		/// <summary>
+		/// Passa em todos os vértices e os seta como não visitados.
+		/// </summary>
+		public void ResetaVisitas( )
+		{
+			foreach( var vertice in this.Vertices )
+			{
+				vertice.Visitado = false;
+			}
+		}
 	}
 }

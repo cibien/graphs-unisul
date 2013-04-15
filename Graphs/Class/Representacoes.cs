@@ -10,49 +10,104 @@ namespace Graphs.Class
 	public static class Representacoes
 	{
 		/// <summary>
-		/// Calcula o menor caminho p
+		/// Calcula o menor caminho para grafos não valorados.
 		/// </summary>
-		/// <param name="grafo"></param>
-		/// <param name="origem"></param>
-		/// <param name="destino"></param>
-		/// <param name="caminhoPercorrido"></param>
-		/// <returns></returns>
-		public static double CalculaMenorCaminho( Grafo grafo, Vertice origem, Vertice destino, List<Vertice> caminhoPercorrido )
+		/// <param name="grafo">O grafo a ser verificado.</param>
+		/// <param name="origem">O grafo de origem.</param>
+		/// <param name="destino">O grafo de destino.</param>
+		/// <param name="caminhoPercorrido">O caminho percorrido para o menor caminho.</param>
+		/// <returns>A quantidade de arestas percorridas.</returns>
+		public static int CalculaMenorCaminho( Grafo grafo, Vertice origem, Vertice destino, List<Vertice> caminhoPercorrido )
 		{
-			double menor = Double.MaxValue;
-			double custo = 0;
+			int menor = Int32.MaxValue;
+			int custo = 0;
 
 			caminhoPercorrido.Add( origem );
 
-			if( origem.Nome == destino.Nome )
+			if( origem.Nome.Equals( destino.Nome ) )
 				return custo;
 
 			List<Vertice> caminhoAnterior = new List<Vertice>( caminhoPercorrido );
 			List<Vertice> caminho = null;
 
-			foreach( Vertice proxVertice in GetAdjacentes( grafo, origem ) )
+			List<Vertice> adjancentes = GetAdjacentes( grafo, origem );
+
+			if( adjancentes.Count == 0 )
+				return Int32.MaxValue;
+
+			foreach( Vertice adj in adjancentes.OrderBy( a => a.Nome ) )
 			{
 				caminho = new List<Vertice>( caminhoAnterior );
-				custo = Double.MaxValue;
+				custo = Int32.MaxValue;
 
-				if( !caminho.Exists( a => a.Nome == proxVertice.Nome ) )
-					custo = 1 + CalculaMenorCaminho( grafo, proxVertice, destino, caminho );
+				if( !caminho.Exists( a => a.Nome.Equals( adj.Nome ) ) )
+					return custo = 1 + CalculaMenorCaminho( grafo, adj, destino, caminho );
 			}
 
 			if( custo < menor )
 			{
 				menor = custo;
-
 				caminhoPercorrido.Clear( );
+
 				caminho.ForEach( a =>
 				{
-
 					caminhoPercorrido.Add( a );
 				} );
 			}
 
 			return menor;
 		}
+
+		/// <summary>
+		/// Calcula o menor caminho para grafos não valorados.
+		/// </summary>
+		/// <param name="grafo">O grafo a ser verificado.</param>
+		/// <param name="origem">O grafo de origem.</param>
+		/// <param name="destino">O grafo de destino.</param>
+		/// <param name="caminhoPercorrido">O caminho percorrido para o menor caminho.</param>
+		/// <returns>A quantidade de arestas percorridas.</returns>
+		//public static int CalculaMenorCaminho( Grafo grafo, Vertice origem, Vertice destino, List<Vertice> caminhoPercorrido )
+		//{
+		//	int menor = Int32.MaxValue;
+		//	int custo = 0;
+
+		//	caminhoPercorrido.Add( origem );
+
+		//	if( origem.Nome.Equals( destino.Nome ) )
+		//		return custo;
+
+		//	List<Vertice> caminhoAnterior = new List<Vertice>( caminhoPercorrido );
+		//	List<Vertice> caminho = null;
+
+		//	List<Vertice> adjancentes = GetAdjacentes( grafo, origem );
+
+		//	if( adjancentes.Count == 0 )
+		//		return Int32.MaxValue;
+
+		//	foreach( Vertice adj in adjancentes.OrderBy( a => a.Nome ) )
+		//	{
+		//		caminho = new List<Vertice>( caminhoAnterior );
+		//		custo = Int32.MaxValue;
+
+		//		if( !caminho.Exists( a => a.Nome.Equals( adj.Nome ) ) )
+		//		{
+		//			return custo = 1 + CalculaMenorCaminho( grafo, adj, destino, caminho );
+		//		}
+		//	}
+
+		//	if( custo < menor )
+		//	{
+		//		menor = custo;
+		//		caminhoPercorrido.Clear( );
+
+		//		caminho.ForEach( a =>
+		//		{
+		//			caminhoPercorrido.Add( a );
+		//		} );
+		//	}
+
+		//	return menor;
+		//}
 
 		/// <summary>
 		/// Gera a matriz de incidêcia do grafo.
