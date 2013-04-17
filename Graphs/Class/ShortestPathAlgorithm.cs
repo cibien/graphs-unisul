@@ -9,7 +9,10 @@ namespace Graphs.Class
 	/// </summary>
 	public static class ShortestPathAlgorithm
 	{
-		private static int INFINITO = 999;
+		/// <summary>
+		/// Define o valor alto para informar que não há caminho entre dois vértices.
+		/// </summary>
+		public static int INFINITO = 999;
 
 		/// <summary>
 		/// Algoritmo de Floyd-Warshall para calcular a matriz de distância do grafo.
@@ -25,7 +28,7 @@ namespace Graphs.Class
 					// Caso a origem seja igual ao destino
 					// então a distância é 1
 					if( i == j )
-						adjMat[ i, j ] = 1;
+						adjMat[ i, j ] = 0;
 					else if( adjMat[ i, j ] == 0 )
 						adjMat[ i, j ] = INFINITO;
 				}
@@ -61,53 +64,93 @@ namespace Graphs.Class
 		}
 
 		/// <summary>
-		/// Calcula o menor caminho para grafos não valorados.
+		/// Algoritmo para calcular o menor caminho para para todos
+		/// os vértices de acordo com a origem.
 		/// </summary>
-		/// <param name="grafo">O grafo a ser verificado.</param>
-		/// <param name="origem">O grafo de origem.</param>
-		/// <param name="destino">O grafo de destino.</param>
-		/// <param name="caminhoPercorrido">O caminho percorrido para o menor caminho.</param>
-		/// <returns>A quantidade de arestas percorridas.</returns>
-		public static int CalculaMenorCaminho( Grafo grafo, Vertice origem, Vertice destino, List<Vertice> caminhoPercorrido )
+		/// <param name="vertices">O conjunto de vértices do grafo.</param>
+		/// <param name="arestas">O conjunto de arestas do grafo.</param>
+		/// <param name="origem">O vértice de origem a ser verificado.</param>
+		/// <returns>A lista de vértices do grafo com seus valores preenchidos.</returns>
+		public static List<Vertice> Dijkstra( List<Vertice> vertices, List<Aresta> arestas, Vertice origem )
 		{
-			int menor = Int32.MaxValue;
-			int custo = 0;
+			List<Vertice> cpVertices = vertices;
 
-			caminhoPercorrido.Add( origem );
-
-			if( origem.Nome.Equals( destino.Nome ) )
-				return custo;
-
-			List<Vertice> caminhoAnterior = new List<Vertice>( caminhoPercorrido );
-			List<Vertice> caminho = null;
-
-			List<Vertice> adjancentes = Representacoes.GetAdjacentes( grafo, origem );
-
-			if( adjancentes.Count == 0 )
-				return Int32.MaxValue;
-
-			foreach( Vertice adj in adjancentes.OrderBy( a => a.Nome ) )
+			foreach( Vertice v in cpVertices )
 			{
-				caminho = new List<Vertice>( caminhoAnterior );
-				custo = Int32.MaxValue;
+				if( v.Nome == origem.Nome )
+					v.Distancia = 0;
+				else
+					v.Distancia = INFINITO;
 
-				if( !caminho.Exists( a => a.Nome.Equals( adj.Nome ) ) )
-					return custo = 1 + CalculaMenorCaminho( grafo, adj, destino, caminho );
+				v.Caminho = null;
 			}
 
-			if( custo < menor )
+			for( int i = 0; i < cpVertices.Count; i++ )
 			{
-				menor = custo;
-				caminhoPercorrido.Clear( );
-
-				caminho.ForEach( a =>
+				foreach( Aresta uv in arestas )
 				{
-					caminhoPercorrido.Add( a );
-				} );
+					Vertice u = cpVertices.Where( a => a.Nome == uv.Origem.Nome ).First( );
+					Vertice v = cpVertices.Where( a => a.Nome == uv.Destino.Nome ).First( );
+
+					if( v.Distancia > ( u.Distancia + uv.Peso ) )
+					{
+						v.Distancia = u.Distancia + uv.Peso;
+						v.Caminho = u;
+					}
+				}
 			}
 
-			return menor;
+			return cpVertices;
 		}
 
+		/// <summary>
+		/// Algoritmo para calcular o menor caminho para para todos
+		/// os vértices de acordo com a origem.
+		/// Verificando também se há algum ciclo negativo.
+		/// </summary>
+		/// <param name="vertices">O conjunto de vértices do grafo.</param>
+		/// <param name="arestas">O conjunto de arestas do grafo.</param>
+		/// <param name="origem">O vértice de origem a ser verificado.</param>
+		/// <returns>A lista de vértices do grafo com seus valores preenchidos.</returns>
+		public static List<Vertice> BellmanFord( List<Vertice> vertices, List<Aresta> arestas, Vertice origem )
+		{
+			List<Vertice> cpVertices = vertices;
+
+			foreach( Vertice v in cpVertices )
+			{
+				if( v.Nome == origem.Nome )
+					v.Distancia = 0;
+				else
+					v.Distancia = INFINITO;
+
+				v.Caminho = null;
+			}
+
+			for( int i = 0; i < cpVertices.Count; i++ )
+			{
+				foreach( Aresta uv in arestas )
+				{
+					Vertice u = cpVertices.Where( a => a.Nome == uv.Origem.Nome ).First( );
+					Vertice v = cpVertices.Where( a => a.Nome == uv.Destino.Nome ).First( );
+
+					if( v.Distancia > ( u.Distancia + uv.Peso ) )
+					{
+						v.Distancia = u.Distancia + uv.Peso;
+						v.Caminho = u;
+					}
+				}
+			}
+
+			foreach( Aresta uv in arestas )
+			{
+				Vertice u = cpVertices.Where( a => a.Nome == uv.Origem.Nome ).First( );
+				Vertice v = cpVertices.Where( a => a.Nome == uv.Destino.Nome ).First( );
+
+				if( v.Distancia > u.Distancia + uv.Peso )
+					throw new Exception( "O grafo contém um ciclo negativo." );
+			}
+
+			return cpVertices;
+		}
 	}
 }

@@ -63,23 +63,80 @@ namespace Graphs
 				case "Lista de Aresta":
 					ListaAresta( m_grafo );
 					break;
+					
+				case "Centro do Grafo - Floyd-Warshall":
+					CentroGrafoFloyWarshall( m_grafo );
+					break;
 
-				case "Centro do Grafo":
-					CentroGrafo( m_grafo );
+				case "Centro do Grafo - Bellman-Ford":
+					CentroGrafoBellmanFord( m_grafo );
+					break;
+
+				case "Centro do Grafo - Dijkstra":
+					CentroGrafoDjikstra( m_grafo );
 					break;
 
 				default:
 					break;
 			}
-			
+
 			// Grafo valorado
 			// (1,2,2) , (1,5,10), (2,3,3), (2,4,7), (3,4,4), (5,3,8), (5,4,5)
 		}
 
-		private void CentroGrafo( Grafo m_grafo )
+		private void CentroGrafoFloyWarshall( Grafo m_grafo )
 		{
 			int[ , ] disMat = ShortestPathAlgorithm.FloydWarshall( Representacoes.GetMatrizAdjacencia( m_grafo ) );
 			MessageBox.Show( Util.PrintMatrizDistancia( disMat, m_grafo.Vertices, "Matriz de Distância" ) );
+		}
+
+		private void CentroGrafoDjikstra( Grafo m_grafo )
+		{
+			foreach( Vertice v in m_grafo.Vertices )
+			{
+				List<Vertice> retorno = ShortestPathAlgorithm.Dijkstra( m_grafo.Vertices, m_grafo.Arestas, v );
+
+				StringBuilder sb = new StringBuilder( );
+
+				foreach( Vertice vDestino in m_grafo.Vertices )
+				{
+					sb.Append( "Menor caminho de " );
+					sb.Append( v.ToString( ) );
+					sb.Append( " para " );
+					sb.Append( vDestino.ToString( ) );
+					sb.Append( " é : " );
+					sb.Append( vDestino.Distancia == ShortestPathAlgorithm.INFINITO ? "Não existe" : vDestino.Distancia.ToString( ) );
+					sb.Append( Environment.NewLine );
+				}
+
+				MessageBox.Show( sb.ToString( ) );
+			}
+		}
+
+		private void CentroGrafoBellmanFord( Grafo m_grafo )
+		{
+			//int[ , ] disMat = ShortestPathAlgorithm.FloydWarshall( Representacoes.GetMatrizAdjacencia( m_grafo ) );
+			//MessageBox.Show( Util.PrintMatrizDistancia( disMat, m_grafo.Vertices, "Matriz de Distância" ) );
+
+			foreach( Vertice v in m_grafo.Vertices )
+			{
+				List<Vertice> retorno = ShortestPathAlgorithm.Dijkstra( m_grafo.Vertices, m_grafo.Arestas, v );
+
+				StringBuilder sb = new StringBuilder( );
+
+				foreach( Vertice vDestino in m_grafo.Vertices )
+				{
+					sb.Append( "Menor caminho de " );
+					sb.Append( v.ToString( ) );
+					sb.Append( " para " );
+					sb.Append( vDestino.ToString( ) );
+					sb.Append( " é : " );
+					sb.Append( vDestino.Distancia == ShortestPathAlgorithm.INFINITO ? "Não existe" : vDestino.Distancia.ToString( ) );
+					sb.Append( Environment.NewLine );
+				}
+
+				MessageBox.Show( sb.ToString( ) );
+			}
 		}
 
 		private void ListaAresta( Grafo m_grafo )

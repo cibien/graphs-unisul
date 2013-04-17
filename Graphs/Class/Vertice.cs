@@ -12,7 +12,17 @@ namespace Graphs
 		/// Define o nome do vértice.
 		/// </summary>
 		public string Nome { get; set; }
-		
+
+		/// <summary>
+		/// Define o caminho até este vértice.
+		/// </summary>
+		public Vertice Caminho { get; set; }
+
+		/// <summary>
+		/// Define a distância do vértice.
+		/// </summary>
+		public int Distancia { get; set; }
+
 		/// <summary>
 		/// Construtor padrão
 		/// </summary>
