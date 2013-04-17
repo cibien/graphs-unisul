@@ -79,36 +79,8 @@ namespace Graphs
 
 		private void CentroGrafo( Grafo m_grafo )
 		{
-			int[ , ] matrizDistancia = new int[ m_grafo.Vertices.Count, m_grafo.Vertices.Count ];
-			List<Vertice> menorCaminho = new List<Vertice>( );
-
-			for( int i = 0; i < m_grafo.Vertices.Count; i++ )
-			{
-				for( int j = 0; j < m_grafo.Vertices.Count; j++ )
-				{
-					int menorCusto = Representacoes.CalculaMenorCaminho( m_grafo, m_grafo.Vertices[ i ], m_grafo.Vertices[ j ], menorCaminho );
-					matrizDistancia[ i, j ] = menorCusto;
-				}
-			}
-
-			MessageBox.Show( Util.PrintMatrix( matrizDistancia, "Matriz de Distância" ) );
-
-			//if( menorCusto == Int32.MaxValue )
-			//{
-			//	MessageBox.Show( "Este vértice não possui caminho até o vértice de destino" );
-			//}
-			//else
-			//{
-			//	string resultado = "Menor caminho entre " + origem.Nome + " e " + destino.Nome + " é: " + menorCusto.ToString( );
-			//	resultado += Environment.NewLine + Environment.NewLine;
-
-			//	foreach( Vertice v in menorCaminho )
-			//	{
-			//		resultado += " => " + v.Nome + " ";
-			//	}
-
-			//	MessageBox.Show( resultado );
-			//}
+			int[ , ] disMat = ShortestPathAlgorithm.FloydWarshall( Representacoes.GetMatrizAdjacencia( m_grafo ) );
+			MessageBox.Show( Util.PrintMatrizDistancia( disMat, m_grafo.Vertices, "Matriz de Distância" ) );
 		}
 
 		private void ListaAresta( Grafo m_grafo )
@@ -125,13 +97,13 @@ namespace Graphs
 		private void MatrizIncidencia( Grafo m_grafo )
 		{
 			int[ , ] matrizIncidencia = Representacoes.GetMatrizIncidencia( m_grafo );
-			MessageBox.Show( Util.PrintMatrix( matrizIncidencia, "Matrix de Incidência" ), "Matriz de Incidência" );
+			MessageBox.Show( Util.PrintMatrizDistancia( matrizIncidencia, m_grafo.Vertices, "Matrix de Incidência" ), "Matriz de Incidência" );
 		}
 
 		private void MatrizAdjacencia( Grafo m_grafo )
 		{
 			int[ , ] matrizAdj = Representacoes.GetMatrizAdjacencia( m_grafo );
-			MessageBox.Show( Util.PrintMatrix( matrizAdj, "Matrix de Adjacência" ), "Matriz de Incidência" );
+			MessageBox.Show( Util.PrintMatrizDistancia( matrizAdj, m_grafo.Vertices, "Matrix de Adjacência" ), "Matriz de Incidência" );
 		}
 
 		private void ListaIncidencia( Grafo m_grafo )

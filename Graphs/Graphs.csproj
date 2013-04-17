@@ -48,6 +48,7 @@
     <Compile Include="Class\Grafo.cs" />
     <Compile Include="Class\OperacoesMatriz.cs" />
     <Compile Include="Class\Representacoes.cs" />
+    <Compile Include="Class\ShortestPathAlgorithm.cs" />
     <Compile Include="Class\Util.cs" />
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>

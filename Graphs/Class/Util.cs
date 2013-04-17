@@ -98,6 +98,53 @@ namespace Graphs.Class
 			return sb.ToString( );
 		}
 
+		public static string PrintMatrizDistancia( int[ , ] matriz, List<Vertice> vertices, string textoInicial )
+		{
+			StringBuilder sb = new StringBuilder( );
+			sb.Append( textoInicial );
+			sb.Append( Environment.NewLine );
+
+			sb.Append( "X - |" );
+			
+			for( int i = 0; i < vertices.Count; i++ )
+			{
+				sb.Append( "  " );	
+				sb.Append( vertices[ i ] );
+				sb.Append( " |" );	
+			}
+
+			sb.Append( Environment.NewLine );
+
+			for( int i = 0; i < matriz.GetLength( 0 ); i++ )
+			{
+				sb.Append( vertices[ i ] );
+				sb.Append( " - " );
+
+				for( int j = 0; j < matriz.GetLength( 1 ); j++ )
+				{
+					sb.Append( "|" );
+
+					if( matriz[ i, j ] < 0 )
+					{
+						sb.Append( " " );
+						sb.Append( matriz[ i, j ] );
+						sb.Append( " " );
+					}
+					else
+					{
+						sb.Append( "  " );
+						sb.Append( matriz[ i, j ] );
+						sb.Append( " " );
+					}
+				}
+
+				sb.Append( "|" );
+				sb.Append( Environment.NewLine );
+			}
+
+			return sb.ToString( );
+		}
+
 		public static string PrintListaAresta( List<Vertice> lista, bool inicio )
 		{
 			string retorno = string.Empty;
