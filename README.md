@@ -9,9 +9,18 @@ Projeto contendo a implementação dos exercícios recebidos em aula.
 - Matriz de Incidência
 - Matriz de Adjacência
 
+### Tipos de grafo ###
+
+- Valorado ou não valorado
+- Direcionado ou dígrafo
+
+### Algoritmos para cálcular o menor caminho ###
+
+- Floyd-Warshall
+- Dijkstra (to-do)
+- Bellman-Ford (to-do)
+
 ### To Do ###
 
-- Grafo valorado
-- Calcular distância
 - Centro do grafo
 

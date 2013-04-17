@@ -67,10 +67,12 @@ namespace Graphs.Class
 				if( i < 0 || j < 0 )
 					continue;
 
-				matrixAdj[ i, j ] = 1;
+				matrixAdj[ i, j ] = aresta.Peso;
 
+				// Caso não for dirigido, a matriz de adjacência deve ser um espelho, ou seja,
+				// os valores devem ser iguais dos dois lados da diagonal principal
 				if( !grafo.isDirigido )
-					matrixAdj[ j, i ] = 1;
+					matrixAdj[ j, i ] = aresta.Peso;
 			}
 
 			return matrixAdj;
@@ -173,16 +175,17 @@ namespace Graphs.Class
 			int countNome = 1;
 
 			// Passando em cada par, criando uma nova aresta, e adicinando ao grafo
-			for( int i = 0; i < m_lista.Count; i += 2 )
+			for( int i = 0; i < m_lista.Count; i += 3 )
 			{
 				Vertice origem = new Vertice( m_lista[ i ] );
 				Vertice destino = new Vertice( m_lista[ i + 1 ] );
+				int peso = Convert.ToInt32( m_lista[ i + 2 ] );
 
 				string nome = grafo.Arestas.Where( a =>
 											( a.Destino.Nome == origem.Nome && a.Origem.Nome == destino.Nome ) ||
 											( a.Destino.Nome == destino.Nome && a.Origem.Nome == origem.Nome ) ).Select( b => b.Nome ).FirstOrDefault( );
 
-				grafo.AddAresta( origem, destino, nome == null ? countNome.ToString( ) : nome );
+				grafo.AddAresta( origem, destino, peso, nome == null ? countNome.ToString( ) : nome );
 
 				if( nome == null )
 					countNome++;

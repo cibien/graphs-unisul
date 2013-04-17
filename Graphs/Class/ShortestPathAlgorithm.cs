@@ -48,6 +48,15 @@ namespace Graphs.Class
 				}
 			}
 
+			for( int i = 0; i < Cmin.GetLength( 0 ); i++ )
+			{
+				for( int j = 0; j < Cmin.GetLength( 1 ); j++ )
+				{
+					if( Cmin[ i, j ] == INFINITO )
+						Cmin[ i, j ] = -1;
+				}
+			}
+
 			return Cmin;
 		}
 

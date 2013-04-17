@@ -71,25 +71,15 @@ namespace Graphs
 		/// </summary>
 		/// <param name="origem">O Vértice de origem.</param>
 		/// <param name="destino">O Vértice de destino.</param>
+		/// <param name="peso">O peso/custo da aresta.</param>
 		/// <param name="nome">O nome da aresta.</param>
 		/// <returns>A aresta criada.</returns>
-		public Aresta AddAresta( Vertice origem, Vertice destino, string nome )
+		public Aresta AddAresta( Vertice origem, Vertice destino, int peso, string nome )
 		{
-			Aresta m_aresta = new Aresta( origem, destino, nome );
+			Aresta m_aresta = new Aresta( origem, destino, peso, nome );
 			Arestas.Add( m_aresta );
 
 			return m_aresta;
-		}
-
-		/// <summary>
-		/// Passa em todos os vértices e os seta como não visitados.
-		/// </summary>
-		public void ResetaVisitas( )
-		{
-			foreach( var vertice in this.Vertices )
-			{
-				vertice.Visitado = false;
-			}
 		}
 	}
 }

@@ -8,14 +8,24 @@ namespace Graphs
 {
 	public class Vertice
 	{
+		/// <summary>
+		/// Define o nome do vértice.
+		/// </summary>
 		public string Nome { get; set; }
-		public bool Visitado { get; set; }
-
+		
+		/// <summary>
+		/// Construtor padrão
+		/// </summary>
+		/// <param name="nome">O nome do vértice.</param>
 		public Vertice( string nome )
 		{
 			Nome = nome;
 		}
 
+		/// <summary>
+		/// Mostra o nome do vértice.
+		/// </summary>
+		/// <returns>O nome do vértice.</returns>
 		public override string ToString( )
 		{
 			return this.Nome;

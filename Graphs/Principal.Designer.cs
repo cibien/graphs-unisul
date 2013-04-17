@@ -155,10 +155,10 @@
 			this.label1.ForeColor = System.Drawing.SystemColors.GrayText;
 			this.label1.Location = new System.Drawing.Point(107, 105);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(296, 39);
+			this.label1.Size = new System.Drawing.Size(288, 52);
 			this.label1.TabIndex = 3;
-			this.label1.Text = "Exemplos\r\nDirigido: {(1,2),(1,5),(2,5),(2,4),(2,3),(3,4),(4,5)}\r\nDígrafo: 1,2 1,5" +
-    " 2,1 2,5 2,3 2,4 3,2 3,4 4,2 4,5 4,3 5,4 5,1 5,2";
+			this.label1.Text = "Exemplos:\r\n(1,2,2) , (1,5,10), (2,3,3), (2,4,7), (3,4,4), (5,3,8), (5,4,5)\r\n\r\nSen" +
+    "do: (Vértice Origem, Vértice Destino, Peso/Custo Aresta)";
 			// 
 			// Principal
 			// 
