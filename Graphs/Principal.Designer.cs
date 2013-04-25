@@ -103,9 +103,9 @@
             "Matriz de Adjacência",
             "Matriz de Incidência",
             "Lista de Aresta",
-            "Centro do Grafo - Floyd-Warshall",
-            "Centro do Grafo - Bellman-Ford",
-            "Centro do Grafo - Dijkstra"});
+            "Menor Caminho - Bellman-Ford",
+            "Menor Caminho - Dijkstra",
+            "Centro do Grafo - Floyd-Warshall"});
 			this.cbx_operacao.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.cbx_operacao.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cbx_operacao.FormattingEnabled = true;
@@ -114,9 +114,9 @@
             "Matriz de Adjacência",
             "Matriz de Incidência",
             "Lista de Aresta",
-            "Centro do Grafo - Floyd-Warshall",
-            "Centro do Grafo - Bellman-Ford",
-            "Centro do Grafo - Dijkstra"});
+            "Menor Caminho - Bellman-Ford",
+            "Menor Caminho - Dijkstra",
+            "Centro do Grafo - Floyd-Warshall"});
 			this.cbx_operacao.Location = new System.Drawing.Point(107, 190);
 			this.cbx_operacao.Name = "cbx_operacao";
 			this.cbx_operacao.Size = new System.Drawing.Size(296, 21);

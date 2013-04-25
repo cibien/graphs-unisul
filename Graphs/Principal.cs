@@ -63,16 +63,16 @@ namespace Graphs
 				case "Lista de Aresta":
 					ListaAresta( m_grafo );
 					break;
-					
+
 				case "Centro do Grafo - Floyd-Warshall":
 					CentroGrafoFloyWarshall( m_grafo );
 					break;
 
-				case "Centro do Grafo - Bellman-Ford":
+				case "Menor Caminho - Bellman-Ford":
 					CentroGrafoBellmanFord( m_grafo );
 					break;
 
-				case "Centro do Grafo - Dijkstra":
+				case "Menor Caminho - Dijkstra":
 					CentroGrafoDjikstra( m_grafo );
 					break;
 
@@ -87,7 +87,14 @@ namespace Graphs
 		private void CentroGrafoFloyWarshall( Grafo m_grafo )
 		{
 			int[ , ] disMat = ShortestPathAlgorithm.FloydWarshall( Representacoes.GetMatrizAdjacencia( m_grafo ) );
-			MessageBox.Show( Util.PrintMatrizDistancia( disMat, m_grafo.Vertices, "Matriz de Distância" ) );
+
+			if( m_grafo.isDirigido )
+			{
+				int[ , ] matrizCentro = OperacoesMatriz.Soma( disMat, OperacoesMatriz.Transposta( disMat ) );
+				MessageBox.Show( Util.PrintMatrizDistancia( matrizCentro, m_grafo.Vertices, "Centro do grafo" ) );
+			}
+			else
+				MessageBox.Show( Util.PrintMatrizDistancia( disMat, m_grafo.Vertices, "Centro do grafo" ) );
 		}
 
 		private void CentroGrafoDjikstra( Grafo m_grafo )
