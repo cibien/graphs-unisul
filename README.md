@@ -24,6 +24,11 @@ Projeto contendo a implementação dos exercícios recebidos em aula.
 
 - Utilizando o algoritmo Floyd-Warshall
 
+### Árvore de Cobertura Mínima ###
+
+- Kruskal
+
+
 ### Como utilizar ###
 
 É necessário inserir a quantidade de vértices do grafo, assim como, o conjunto de arestas e seu respectivo valor.
