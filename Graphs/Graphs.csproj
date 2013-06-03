@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Aresta.cs" />
+    <Compile Include="Class\ArvoreCobertura.cs" />
     <Compile Include="Class\Grafo.cs" />
     <Compile Include="Class\OperacoesMatriz.cs" />
     <Compile Include="Class\Representacoes.cs" />

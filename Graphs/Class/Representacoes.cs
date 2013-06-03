@@ -177,8 +177,10 @@ namespace Graphs.Class
 			// Passando em cada par, criando uma nova aresta, e adicinando ao grafo
 			for( int i = 0; i < m_lista.Count; i += 3 )
 			{
-				Vertice origem = new Vertice( m_lista[ i ] );
-				Vertice destino = new Vertice( m_lista[ i + 1 ] );
+				//Vertice origem = new Vertice( m_lista[ i ] );
+				//Vertice destino = new Vertice( m_lista[ i + 1 ] );
+				Vertice origem = grafo.Vertices.Where( a => a.Nome == m_lista[ i ] ).First( );
+				Vertice destino = grafo.Vertices.Where( a => a.Nome == m_lista[ i + 1 ] ).First( );
 				int peso = Convert.ToInt32( m_lista[ i + 2 ] );
 
 				string nome = grafo.Arestas.Where( a =>

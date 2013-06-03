@@ -105,7 +105,8 @@
             "Lista de Aresta",
             "Menor Caminho - Bellman-Ford",
             "Menor Caminho - Dijkstra",
-            "Centro do Grafo - Floyd-Warshall"});
+            "Centro do Grafo - Floyd-Warshall",
+            "Kruskal"});
 			this.cbx_operacao.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.cbx_operacao.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cbx_operacao.FormattingEnabled = true;
@@ -116,7 +117,8 @@
             "Lista de Aresta",
             "Menor Caminho - Bellman-Ford",
             "Menor Caminho - Dijkstra",
-            "Centro do Grafo - Floyd-Warshall"});
+            "Centro do Grafo - Floyd-Warshall",
+            "Kruskal"});
 			this.cbx_operacao.Location = new System.Drawing.Point(107, 190);
 			this.cbx_operacao.Name = "cbx_operacao";
 			this.cbx_operacao.Size = new System.Drawing.Size(296, 21);

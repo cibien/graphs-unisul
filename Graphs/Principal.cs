@@ -76,12 +76,49 @@ namespace Graphs
 					CentroGrafoDjikstra( m_grafo );
 					break;
 
+				case "Kruskal":
+					Kruskal( m_grafo );
+					break;
+
 				default:
 					break;
 			}
 
 			// Grafo valorado
 			// (1,2,2) , (1,5,10), (2,3,3), (2,4,7), (3,4,4), (5,3,8), (5,4,5)
+			// (1,2,4), (1,8,8), ( 2,3,8), (2,8,11), (3,4,7), (3,6,4), (3,9,2), (4,5,9), (4,6,14), (5,6,10), (6,7,2), (7,8,1), (8,9,7)
+			// (1,2,7),(1,4,5),(2,3,8),(2,4,9),(2,5,7),(4,6,6),(4,5,15),(5,6,8),(5,7,9),(6,7,11)
+		}
+
+		private void Kruskal( Grafo m_grafo )
+		{
+			List<Aresta> resultado = ArvoreCobertura.Kruskal( m_grafo );
+
+			string retorno = string.Empty;
+
+			foreach( Aresta a in resultado.OrderBy( a => a.Origem.Nome ) )
+			{
+				retorno += "Origem: " + a.Origem.Nome + " - Destino: " + a.Destino.Nome + " Custo: " + a.Peso + Environment.NewLine;
+			}
+
+			//foreach( Aresta aresta in resultado )
+			//{
+			//	foreach( Vertice v in aresta.Origem.Conjunto )
+			//	{
+			//		retorno += v.Nome + ", ";
+			//	}
+
+			//	retorno += Environment.NewLine;
+
+			//	foreach( Vertice v in aresta.Destino.Conjunto )
+			//	{
+			//		retorno += v.Nome + ", ";
+			//	}
+
+			//	retorno += Environment.NewLine;
+			//}
+
+			MessageBox.Show( retorno );
 		}
 
 		private void CentroGrafoFloyWarshall( Grafo m_grafo )

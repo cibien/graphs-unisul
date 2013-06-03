@@ -24,12 +24,19 @@ namespace Graphs
 		public int Distancia { get; set; }
 
 		/// <summary>
+		/// O conjunto de vértices para controlar a árvore de cobertura;
+		/// </summary>
+		public List<Vertice> Conjunto { get; set; }
+
+		/// <summary>
 		/// Construtor padrão
 		/// </summary>
 		/// <param name="nome">O nome do vértice.</param>
 		public Vertice( string nome )
 		{
 			Nome = nome;
+			Conjunto = new List<Vertice>( );
+			Conjunto.Add( this );
 		}
 
 		/// <summary>
