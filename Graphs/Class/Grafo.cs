@@ -35,6 +35,27 @@ namespace Graphs
 		/// </summary>
 		public bool isDirigido { get; set; }
 
+		public Vertice VerticeMaiorGrau
+		{
+			get
+			{
+				Dictionary<Vertice, int> graus = new Dictionary<Vertice, int>( );
+
+				foreach( Vertice vertice in this.Vertices )
+				{
+					graus.Add( vertice, 0 );
+
+					foreach( Aresta aresta in this.Arestas )
+					{
+						if( aresta.Destino.Nome == vertice.Nome || aresta.Origem.Nome == vertice.Nome )
+							graus[ vertice ] += 1;
+					}
+				}
+
+				return ( Vertice )graus.Where( a => a.Value == graus.Values.Max( ) ).Select( a => a.Key );
+			}
+		}
+
 		/// <summary>
 		/// Lista de vértices e seus adjacentes contendo o custo.
 		/// </summary>

@@ -28,6 +28,9 @@ Projeto contendo a implementação dos exercícios recebidos em aula.
 
 - Kruskal
 
+### Busca em Profundidade (DFS) ###
+
+- Aplicado a coloração.
 
 ### Como utilizar ###
 

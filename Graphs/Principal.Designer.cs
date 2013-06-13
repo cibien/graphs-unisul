@@ -106,7 +106,8 @@
             "Menor Caminho - Bellman-Ford",
             "Menor Caminho - Dijkstra",
             "Centro do Grafo - Floyd-Warshall",
-            "Kruskal"});
+            "Kruskal",
+            "Busca em Profundidade"});
 			this.cbx_operacao.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.cbx_operacao.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cbx_operacao.FormattingEnabled = true;
@@ -118,7 +119,8 @@
             "Menor Caminho - Bellman-Ford",
             "Menor Caminho - Dijkstra",
             "Centro do Grafo - Floyd-Warshall",
-            "Kruskal"});
+            "Kruskal",
+            "Busca em Profundidade"});
 			this.cbx_operacao.Location = new System.Drawing.Point(107, 190);
 			this.cbx_operacao.Name = "cbx_operacao";
 			this.cbx_operacao.Size = new System.Drawing.Size(296, 21);
